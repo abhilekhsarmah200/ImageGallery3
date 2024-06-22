@@ -1,20 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeScreen from './screens/HomeScreen';
+import SearchScreen from './screens/SearchScreen';
+import { Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen
+          name='Home'
+          component={HomeScreen}
+          options={{
+            tabBarLabel: ({ focused }) => (
+              <Text style={{ color: focused ? 'blue' : 'black' }}>Home</Text>
+            ),
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name='home' size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Search'
+          component={SearchScreen}
+          options={{
+            tabBarLabel: ({ focused }) => (
+              <Text style={{ color: focused ? 'blue' : 'black' }}>Search</Text>
+            ),
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name='search' size={size} color={color} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
